@@ -20,11 +20,7 @@
           }).then((res) => {
             console.log(
               res.json().then((token) => {
-                window.Telegram.WebApp.openTelegramLink(
-                  encodeURI(
-                    "https://t.me/espasatelbot?start=" + token.access_token
-                  )
-                );
+                window.Telegram.WebApp.sendData(token.access_token);
               })
             );
           });
