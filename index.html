@@ -11,14 +11,23 @@
         document.getElementById("huyy").addEventListener("click", () => {
           const log = document.getElementById("log").value;
           const pass = document.getElementById("pass").value;
-          window.Telegram.WebApp.openTelegramLink(
-            encodeURI(
-              "https://t.me/esp_helpmepleasewtfisthis_bot?start=" +
-                log +
-                "_" +
-                pass
-            )
-          );
+          const fd = new FormData();
+          fd.append("username", log);
+          fd.append("password", pass);
+          const ft = fetch("https://api.espasatel.com/auth/login", {
+            method: "POST",
+            body: fd,
+          }).then((res) => {
+            console.log(
+              res.json().then((token) => {
+                window.Telegram.WebApp.openTelegramLink(
+                  encodeURI(
+                    "https://t.me/espasatelbot?start=" + token.access_token
+                  )
+                );
+              })
+            );
+          });
         });
       };
       window.onload = ol;
