@@ -7,7 +7,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
       const ol = () => {
-        console.log(window.Telegram.WebApp.initDataUnsafe);
+        window.Telegram.WebApp.expand();
         document.getElementById("huyy").addEventListener("click", () => {
           const log = document.getElementById("log").value;
           const pass = document.getElementById("pass").value;
@@ -18,22 +18,59 @@
             method: "POST",
             body: fd,
           }).then((res) => {
-            console.log(
-              res.json().then((token) => {
-                window.Telegram.WebApp.sendData(token.access_token);
-              })
-            );
+            res.json().then((token) => {
+              window.Telegram.WebApp.sendData(token.access_token);
+            });
           });
         });
       };
       window.onload = ol;
     </script>
+    <style>
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        background-color: var(--tg-theme-bg-color);
+        color: var(--tg-theme-text-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      p {
+        margin: 0;
+      }
+      button {
+        background-color: var(--tg-theme-button-color);
+        color: var(--tg-theme-button-text-color);
+        padding: 15px;
+        border-radius: 14px;
+        border: 1px var(--tg-theme-button-color);
+        margin-top: 10px;
+      }
+      input {
+        border-radius: 14px;
+        border: solid 1px var(--tg-theme-button-color);
+        height: 30px;
+        background-color: var(--tg-theme-bg-color);
+        color: var(--tg-theme-text-color);
+      }
+      .bc {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
   </head>
   <body>
-    <p>log</p>
-    <input id="log" />
-    <p>pass</p>
-    <input id="pass" />
-    <button id="huyy">Click me</button>
+    <div class="cont">
+      <p>log</p>
+      <input id="log" />
+      <p>pass</p>
+      <input type="password" id="pass" />
+      <br />
+      <div class="bc">
+        <button id="huyy">Click me</button>
+      </div>
+    </div>
   </body>
 </html>
